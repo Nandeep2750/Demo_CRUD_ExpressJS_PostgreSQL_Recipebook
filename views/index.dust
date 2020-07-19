@@ -1,0 +1,116 @@
+{>"layout"/}
+
+{<body}
+<div>
+    <div class="text-right">
+        <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#formModel">Add Recipie</button>
+    </div>
+    
+    <div class="accordion mt-3" id="accordionExample">
+        {#recipies}
+            <div class="card">
+                <div class="card-header" id="recipieHeading_{id}">
+                    <h4 class="mb-0">
+                        {name}
+                        <button class="btn btn-outline-dark float-right collapsed" type="button" data-toggle="collapse" data-target="#recipie_{id}" aria-expanded="false" aria-controls="recipie_{id}">
+                            <i class="fa fa-chevron-down fa-1x" aria-hidden="true"></i>
+                        </button>
+                    </h4>
+                </div>
+                <div id="recipie_{id}" class="collapse" aria-labelledby="recipieHeading_{id}" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <h5>Ingredients</h5>
+                        <pre style="white-space: pre-wrap;">{ingredients}</pre>
+                        <h5>Directions</h5>
+                        <pre style="white-space: pre-wrap;">{directions}</pre>
+                        <button type="button" class="btn btn-outline-primary edit-recipie" 
+                            data-toggle="modal" 
+                            data-target="#editFormModel"
+                            data-id="{id}"
+                            data-name="{name}"
+                            data-ingredients="{ingredients}"
+                            data-directions="{directions}"
+                        >
+                            Edit
+                        </button>
+                        <button type="button" class="btn btn-outline-danger mx-2 delete-recipie" data-id="{id}">Delete</button>
+                    </div>
+                </div>
+            </div>
+        {/recipies}
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="formModel" tabindex="-1" role="dialog" aria-labelledby="formModelLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centere">
+            <form action="/add" method="POST">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="formModelLabel">Add Recipie</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Enter Recipie Name, Ingredients, Directions...</p>
+                        <div class="form-group">
+                            <label for="name" class="col-form-label">Recipie Name</label>
+                            <input type="text" class="form-control" id="name" name="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="ingredients" class="col-form-label">Ingredients</label>
+                            <textarea class="form-control" id="ingredients" name="ingredients" rows="5"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="directions" class="col-form-label">Directions</label>
+                            <textarea class="form-control" id="directions" name="directions" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-outline-primary" value="Add Recipie"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editFormModel" tabindex="-1" role="dialog" aria-labelledby="editFormModelLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centere modal-lg">
+            <form action="/edit" method="POST">
+                <input type="hidden" name="id" id="edit-form-id"> 
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editFormModelLabel">Add Recipie</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Enter Recipie Name, Ingredients, Directions...</p>
+                        <div class="form-group">
+                            <label for="name" class="col-form-label">Recipie Name</label>
+                            <input type="text" class="form-control" id="edit-form-name" name="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="ingredients" class="col-form-label">Ingredients</label>
+                            <textarea class="form-control" id="edit-form-ingredients" name="ingredients" rows="5"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="directions" class="col-form-label">Directions</label>
+                            <textarea class="form-control" id="edit-form-directions" name="directions" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-outline-primary" value="Save changes"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+{/body}
